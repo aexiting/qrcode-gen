@@ -1,0 +1,33 @@
+#input-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute; /* or relative, depending on the context */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Or translate(-50%, 0) for horizontal centering only */
+}
+
+#title {
+    white-space: nowrap;
+    font-size: clamp(1.2rem, 3vw, 2.5rem);
+    margin: 10px auto;
+
+}
+
+#text-input  {
+
+    width: 80%;
+    height: 60px;
+    margin: 0 auto;
+
+    font-size: 25px;
+}
+
+#gen-btn {
+    width: 50%;
+    margin: 10px auto;
+}
+
+.qr-code {
+    margin: 20px auto;
+}
