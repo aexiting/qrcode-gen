@@ -1,33 +1,128 @@
+
+body {
+   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Or Phantomsans if you prefer */
+   background-color: #1e1e1e; /* Dark background (adjust if needed) */
+   color: #d4d4d4; /* Light text (adjust if needed) */
+   margin: 0;
+   padding: 20px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   min-height: 100vh;
+   box-sizing: border-box;
+}
+
 #input-container {
     display: flex;
     flex-direction: column;
-    position: absolute; /* or relative, depending on the context */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Or translate(-50%, 0) for horizontal centering only */
+    background-color: #252525; /* Darker container background */
+    padding: 30px;
+    border-radius: 8px; /* Match button's border-radius */
+    box-shadow: rgba(151, 65, 252, 0.2) 0px 12px 28px -6px; /* Similar shadow to button */
+    width: 80%;
+    max-width: 500px;
+    margin-bottom: 30px;
 }
 
 #title {
     white-space: nowrap;
-    font-size: clamp(1.2rem, 3vw, 2.5rem);
-    margin: 10px auto;
-
+    font-size: clamp(1.8rem, 5vw, 3.5rem);
+    margin: 0 auto 25px;
+    color: #f0f0f0;
+    text-align: center;
+    font-weight: 600; /* Match button's font-weight (if desired) */
+    font-family: Phantomsans, sans-serif; /* Match button's font */
 }
 
 #text-input  {
-
-    width: 80%;
-    height: 60px;
-    margin: 0 auto;
-
-    font-size: 25px;
+    width: 100%;
+    height: 55px;
+    padding: 12px 18px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    border: none; /* Remove default border */
+    border-radius: 8px; /* Match button's border-radius */
+    box-sizing: border-box;
+    background-color: #333; /* Dark input background */
+    color: #d4d4d4;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3); /* Subtle inner shadow for depth */
 }
 
-#gen-btn {
-    width: 50%;
-    margin: 10px auto;
+#text-input::placeholder {
+    color: #777;
+}
+
+#text-input:focus {
+    outline: none;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 6px rgba(151, 65, 252, 0.4); /* Focus shadow similar to button's */
+    background-color: #444;
 }
 
 .qr-code {
-    margin: 20px auto;
+    margin: 30px auto;
+    border: none; /* Remove default border */
+    padding: 15px;
+    border-radius: 8px; /* Match button's border-radius */
+    background-color: #252525; /* Dark background */
+    box-shadow: rgba(151, 65, 252, 0.1) 0px 8px 20px -4px; /* shadow */
+}
+
+
+.button-64 {
+    align-items: center;
+    background-image: linear-gradient(135deg, #AF40FF 0%, #5B42F3 50%, #00DDEB 100%); /* Slightly adjusted gradient angle */
+    border: none;
+    border-radius: 8px;
+    box-shadow: rgba(151, 65, 252, 0.2) 0px 12px 28px -6px; /* Adjusted shadow for depth */
+    box-sizing: border-box;
+    color: #FFFFFF;
+    display: flex;
+    font-family: Phantomsans, sans-serif;
+    font-size: 20px;
+    font-weight: 600; /* Added a semi-bold font weight */
+    justify-content: center;
+    line-height: 1em;
+    max-width: 100%;
+    min-width: 140px;
+    padding: 0.3rem;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    cursor: pointer;
+    outline: none;
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.button-64:hover {
+    box-shadow: rgba(151, 65, 252, 0.3) 0px 15px 35px -8px; /* Slightly more prominent shadow on hover */
+}
+
+.button-64 span {
+    background-color: #0B0D17; /* Darker background for the inner span */
+    padding: 16px 24px;
+    border-radius: 6px;
+    width: 100%;
+    height: 100%;
+    transition: background-color 0.2s ease-in-out; /* Smooth transition */
+}
+
+.button-64:hover span {
+    background-color: transparent; /* Keep the gradient visible on hover */
+}
+
+.button-64:focus-visible {
+    box-shadow: rgba(151, 65, 252, 0.5) 0px 15px 35px -8px, 0 0 0 3px #AF40FF; /* Clear focus ring */
+}
+
+.button-64:active span {
+    background-color: #1A202C; /* Slightly darker on active */
+}
+
+@media (min-width: 768px) {
+    .button-64 {
+        font-size: 24px;
+        min-width: 196px;
+    }
 }

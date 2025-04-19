@@ -19,23 +19,27 @@ function App() {
         qr.addData(input)
         qr.make()
         setQRcode(qr.createImgTag(10))
+        setInput('')
     }
 
     return (
     <>
         <div id="input-container">
-            <h1 id="title">Quick Info Exchange App</h1>
+            <h1 id="title">QRCode Generator</h1>
             <input
                 type="text"
                 id="text-input"
                 name="text-input"
                 onChange={(e) => handleInput(e.target.value)}
-                value={input}>
+                value={input}
+                placeholder="Enter info here">
             </input>
-            <button id="gen-btn" onClick={() => generateQRCode()}>Generate</button>
-            {qrcode && <div className="qr-code" dangerouslySetInnerHTML={{ __html: qrcode }}/>}
+            <button className="button-64" role="button" onClick={() => generateQRCode()}>
+                <span className="text">Generate</span>
+            </button>
+            {qrcode && <div className="qr-code" dangerouslySetInnerHTML={{__html: qrcode}}/>}
         </div>
- </>
+    </>
     )
 }
 
