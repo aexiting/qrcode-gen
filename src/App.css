@@ -21,6 +21,7 @@ body {
     box-shadow: rgba(151, 65, 252, 0.2) 0px 12px 28px -6px; /* Similar shadow to button */
     width: 80%;
     max-width: 500px;
+    min-height: 500px;
     margin-bottom: 30px;
 }
 
