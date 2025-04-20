@@ -52,7 +52,7 @@ function App() {
         <div id="input-container">
             {error.hasError && error.errorInfo == 'EMPTY_STRING' && <span className="error" >QRCode input is empty...</span>}
             {error.hasError && error.errorInfo == 'MAX_LENGTH' && <span className="error" >QRCode input is too long...</span>}
-            <h1 id="title">QRCode Generator</h1>
+            <h1 className="title">QRCode Generator</h1>
             <input
                 type="text"
                 id="text-input"
@@ -65,7 +65,7 @@ function App() {
                 <span className="text">Generate</span>
             </button>
             {qrcode && <div className="qr-code" dangerouslySetInnerHTML={{__html: qrcode}}/>}
-            <h1 id="title">Previous Codes</h1>
+            <h1 className="title">Previous Codes</h1>
             <ul className="history-list">
                 {
                     history.map((historyItem, index) =>

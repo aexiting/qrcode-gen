@@ -39,11 +39,11 @@ body {
     margin-bottom: 30px;
 }
 
-#title {
+.title {
     white-space: nowrap;
     font-size: 2em;
     overflow: hidden;
-    margin: 0 auto 25px;
+    margin: 10px auto 25px;
     color: #f0f0f0;
     font-weight: 600; /* Match button's font-weight (if desired) */
     font-family: Phantomsans, sans-serif; /* Match button's font */
