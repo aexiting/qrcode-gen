@@ -7,7 +7,8 @@ function App() {
     const TYPE_NUMBER = 0;
 
     const [input, setInput] = useState('')
-    const [qrcode, setQRcode] = useState('')
+    const [qrcode, setQRCode] = useState('')
+    const [history, setHistory] = useState<string[]>([])
 
     const qr = QRFactory(TYPE_NUMBER, ERROR_CORRECTION_LEVEL)
 
@@ -16,10 +17,20 @@ function App() {
     }
 
     const generateQRCode = () => {
+        if(!input) {
+            return;
+        }
         qr.addData(input)
         qr.make()
-        setQRcode(qr.createImgTag(10))
+        setQRCode(qr.createImgTag(10))
+        setHistory([...history, input])
         setInput('')
+    }
+    const generateFromListItem = (value :string) => {
+        qr.addData(value)
+        qr.make();
+        setQRCode(qr.createImgTag(10))
+        setInput(value)
     }
 
     return (
@@ -38,6 +49,17 @@ function App() {
                 <span className="text">Generate</span>
             </button>
             {qrcode && <div className="qr-code" dangerouslySetInnerHTML={{__html: qrcode}}/>}
+            <h1 id="title">Previous Codes</h1>
+            <ul className="history-list">
+                {
+                    history.map(historyItem =>
+                        <li className="history-item">
+                            <button onClick={() => generateFromListItem(historyItem)}>{historyItem}</button>
+                        </li>
+
+                    )
+                }
+            </ul>
         </div>
     </>
     )
