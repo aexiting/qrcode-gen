@@ -17,6 +17,10 @@ body {
     flex-direction: column-reverse;
 }
 
+.error {
+    color: #F44336;
+
+}
 .history-item {
     margin: 10px;
     width: 8em;
