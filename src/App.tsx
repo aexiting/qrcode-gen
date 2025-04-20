@@ -18,10 +18,6 @@ function App() {
 
     const qr = QRFactory(TYPE_NUMBER, ERROR_CORRECTION_LEVEL)
 
-    const handleInput = (text: string) => {
-        setInput(text)
-    }
-
     const updateQRCode = (data: string, updateHistory: boolean = false) => {
         if (!data) {
             setError({hasError: true, errorInfo: 'EMPTY_STRING'})
@@ -35,7 +31,8 @@ function App() {
             qr.make();
             setQRCode(qr.createImgTag(10))
             if(updateHistory){
-                setHistory([...history, input])
+                const noDuplicates = history.filter(item => item != input)
+                setHistory([...noDuplicates, input])
             }
         }
     }
@@ -60,7 +57,7 @@ function App() {
                 type="text"
                 id="text-input"
                 name="text-input"
-                onChange={(e) => handleInput(e.target.value)}
+                onChange={(e) => setInput(e.target.value)}
                 value={input}
                 placeholder="Enter info here">
             </input>
