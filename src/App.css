@@ -13,13 +13,13 @@ body {
 
 .history-list {
     list-style-type: none;
+    padding-inline-start: 0;
     display: flex;
     flex-direction: column-reverse;
 }
 
 .error {
     color: #F44336;
-
 }
 
 .history-item {
