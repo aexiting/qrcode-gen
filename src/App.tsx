@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import QRFactory from 'qrcode-generator';
 
-type Error = {
+interface Error {
     hasError: boolean;
     errorInfo: 'EMPTY_STRING' | 'MAX_LENGTH' |  null;
 }
@@ -19,7 +19,7 @@ function App() {
     const qr = QRFactory(TYPE_NUMBER, ERROR_CORRECTION_LEVEL)
     useEffect(()=> {
         const saved = localStorage.getItem('history')
-        const savedHistory: string[] = saved ? JSON.parse(saved) : []
+        const savedHistory: string[] = saved ? JSON.parse(saved) as string[] : []
         setHistory(prevHistory => [...prevHistory, ...savedHistory])
     }, [])
 
@@ -29,7 +29,7 @@ function App() {
         }
     },[history])
 
-    const updateQRCode = (data: string, updateHistory: boolean = false) => {
+    const updateQRCode = (data: string, updateHistory = false) => {
         if (!data) {
             setError({hasError: true, errorInfo: 'EMPTY_STRING'})
         }
