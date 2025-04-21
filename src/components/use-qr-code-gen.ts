@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import QRFactory from "qrcode-generator";
 
 
@@ -82,8 +82,6 @@ export const useQrCodeGen = (
         maxLength
     }: QrCodeGenProps): [QrCodeGenState, QRCodeGenActions] => {
 
-    const qr = useMemo(() => QRFactory(typeNumber, errorCorrectionLevel), [errorCorrectionLevel, typeNumber])
-
     const initialState: QrCodeGenState = {
         input: '',
         qrcode: '',
@@ -108,7 +106,7 @@ export const useQrCodeGen = (
     }, [state.history])
 
     const commonQRCodeConfig = {
-        qr,
+        qr: null,
         maxLength,
         data: state.input,
         shouldUpdateHistory: false,
@@ -121,6 +119,7 @@ export const useQrCodeGen = (
                 const {qrcode, updatedHistory, error} =
                     updateQRCode({
                         ...commonQRCodeConfig,
+                        qr: QRFactory(typeNumber, errorCorrectionLevel),
                         shouldUpdateHistory: true
                     })
 
@@ -133,6 +132,7 @@ export const useQrCodeGen = (
                     updateQRCode({
                         ...commonQRCodeConfig,
                         data: historyItem,
+                        qr: QRFactory(typeNumber, errorCorrectionLevel),
                         shouldUpdateHistory: false
                     })
 
