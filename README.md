@@ -9,5 +9,5 @@ Easy just pull in the code and use:
 ``
 npm run dev
 ``
-should work right out of the box assuming you've installed all the npm dependancies.
+should work right out-of-the-box assuming you've installed all the npm dependencies.
 
