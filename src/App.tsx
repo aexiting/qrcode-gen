@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import QRFactory from 'qrcode-generator';
 
@@ -17,6 +17,17 @@ function App() {
     const [error, setError] = useState<Error>(initialError)
 
     const qr = QRFactory(TYPE_NUMBER, ERROR_CORRECTION_LEVEL)
+    useEffect(()=> {
+        const saved = localStorage.getItem('history')
+        const savedHistory: string[] = saved ? JSON.parse(saved) : []
+        setHistory(prevHistory => [...prevHistory, ...savedHistory])
+    }, [])
+
+    useEffect(() => {
+        if (history) {
+            localStorage.setItem('history', JSON.stringify(history))
+        }
+    },[history])
 
     const updateQRCode = (data: string, updateHistory: boolean = false) => {
         if (!data) {
