@@ -10,7 +10,7 @@ const initialError = { hasError: false, errorInfo: null }
 function App() {
     const ERROR_CORRECTION_LEVEL = 'L';
     const TYPE_NUMBER = 0;
-    const MAX_LENGTH = 20;
+    const MAX_LENGTH = 40;
     const [input, setInput] = useState('')
     const [qrcode, setQRCode] = useState('')
     const [history, setHistory] = useState<string[]>([])
