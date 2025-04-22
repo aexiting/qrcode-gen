@@ -6,6 +6,7 @@ interface QrCodeGenProps {
     errorCorrectionLevel: 'L' | 'M' | 'H';
     typeNumber: TypeNumber;
     maxLength: number;
+    maxHistory: number;
 }
 
 export interface QrCodeGenState {
@@ -32,7 +33,8 @@ interface QRCodeProps {
     data: string,
     maxLength: number,
     prevHistory: string[],
-    shouldUpdateHistory: boolean
+    shouldUpdateHistory: boolean,
+    maxHistory: number
 }
 
 export interface Error {
@@ -46,7 +48,8 @@ export const updateQRCode = (
         data,
         maxLength,
         prevHistory,
-        shouldUpdateHistory
+        shouldUpdateHistory,
+        maxHistory,
     }: QRCodeProps): QRCodeResult => {
 
 
@@ -60,8 +63,9 @@ export const updateQRCode = (
         qr.addData(data);
         qr.make();
 
+        const sliceBy = Math.max(0, prevHistory.length + 1 - maxHistory )
         const updatedHistory = shouldUpdateHistory ?
-            [...prevHistory.filter(item => item != data), data] : prevHistory;
+            [...prevHistory.filter(item => item != data), data].slice(sliceBy) : prevHistory;
 
         result = {
             qrcode: qr.createImgTag(10),
@@ -79,7 +83,8 @@ export const useQrCodeGen = (
     {
         errorCorrectionLevel,
         typeNumber,
-        maxLength
+        maxLength,
+        maxHistory
     }: QrCodeGenProps): [QrCodeGenState, QRCodeGenActions] => {
 
     const initialState: QrCodeGenState = {
@@ -110,7 +115,8 @@ export const useQrCodeGen = (
         maxLength,
         data: state.input,
         shouldUpdateHistory: false,
-        prevHistory: state.history
+        prevHistory: state.history,
+        maxHistory
     };
 
     return [state, {
