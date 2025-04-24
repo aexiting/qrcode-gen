@@ -20,6 +20,7 @@ export interface QRCodeGenActions {
     setInput: (input: string) => void;
     generateFromListItem: (historyItem: string) => void;
     generateQRCode: () => void;
+    deleteHistoryItem: (item: string) => void;
 }
 
 interface QRCodeResult {
@@ -63,7 +64,7 @@ export const updateQRCode = (
         qr.addData(data);
         qr.make();
 
-        const sliceBy = Math.max(0, prevHistory.length + 1 - maxHistory )
+        const sliceBy = Math.max(0, prevHistory.length + 1 - maxHistory)
         const updatedHistory = shouldUpdateHistory ?
             [...prevHistory.filter(item => item != data), data].slice(sliceBy) : prevHistory;
 
@@ -120,6 +121,10 @@ export const useQrCodeGen = (
     };
 
     return [state, {
+        deleteHistoryItem: (item: string) => setState({
+            ...state,
+            history: state.history.filter(historyItem => historyItem != item)
+        }),
         generateQRCode:
             () => {
                 const {qrcode, updatedHistory, error} =
