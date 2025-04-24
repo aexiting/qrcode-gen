@@ -38,6 +38,8 @@ export const QrCodeGen = (
                             <li key={index} className="history-item">
                                 <button
                                     onClick={() => qrCodeGenActions.generateFromListItem(historyItem)}>{historyItem}</button>
+                                <button className="delete-button"
+                                    onClick={() => qrCodeGenActions.deleteHistoryItem(historyItem)}>Delete</button>
                             </li>
                         )
                     }
