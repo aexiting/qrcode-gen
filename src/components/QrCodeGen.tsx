@@ -35,7 +35,7 @@ export const QrCodeGen = (
                 <ul className="history-list">
                     {
                         qrCodeGenState.history.map((historyItem: string, index: number) =>
-                            <li key={index} className="history-item">
+                            <li key={index} className="history-item" draggable>
                                 <button
                                     onClick={() => qrCodeGenActions.generateFromListItem(historyItem)}>{historyItem}</button>
                                 <button className="delete-button"
