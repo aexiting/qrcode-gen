@@ -31,6 +31,13 @@ export const QrCodeGen = (
                 </button>
                 {qrCodeGenState.qrcode &&
                     <div className="qr-code" dangerouslySetInnerHTML={{__html: qrCodeGenState.qrcode}}/>}
+                { navigator.canShare() && <button onClick={() => navigator.share(
+                    {
+                        title: "QR-Code",
+                        text: "Share QR-Code as needed.",
+                        url: qrCodeGenState.qrcode
+                    }
+                )}>Share</button>}
                 <h1 className="title">Previous Codes</h1>
                 <ul className="history-list">
                     {
