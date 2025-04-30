@@ -31,7 +31,9 @@ export const QrCodeGen = (
                 <span className="text">Generate</span>
             </button>
             {qrCodeGenState.qrcode &&
-                <div className="qr-code" dangerouslySetInnerHTML={{__html: qrCodeGenState.qrcode}}/>}
+                <div data-testid="qrcode"
+                     className="qr-code"
+                     dangerouslySetInnerHTML={{__html: qrCodeGenState.qrcode}}/>}
                 <h1 className="title">Previous Codes</h1>
                 <ul className="history-list">
             {

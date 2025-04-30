@@ -1,5 +1,5 @@
 import {afterEach, describe, expect, it, vi} from 'vitest'
-import {cleanup, fireEvent, render} from '@testing-library/react'
+import {cleanup, fireEvent, queryByTestId, render} from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
 import {QrCodeGen} from "./QrCodeGen.tsx";
 import {QRCodeGenActions, QrCodeGenState} from "./use-qr-code-gen.ts";
@@ -70,5 +70,23 @@ describe('QrCodeGen', () => {
                 qrCodeGenActions={defaultActions}
             />)
         expect(getByTestId('tooLongInputError')).not.toBeNull();
+    })
+
+    it('should display qrcode properly', () => {
+        const {getByTestId} =
+            render(<QrCodeGen
+                qrCodeGenState={{...defaultState, qrcode: "<div> qrcode html </div>"}}
+                qrCodeGenActions={defaultActions}
+            />)
+        expect(getByTestId('qrcode')).not.toBeNull();
+    })
+
+    it('should not show qrcode wrapper if there is no qrcode yet', () => {
+        const {queryByTestId} =
+            render(<QrCodeGen
+                qrCodeGenState={{...defaultState, qrcode: ""}}
+                qrCodeGenActions={defaultActions}
+            />)
+        expect(queryByTestId('qrcode')).toBeNull();
     })
 })
