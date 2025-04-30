@@ -1,10 +1,9 @@
-import { describe, it, expect } from 'vitest'
-import { afterEach } from 'vitest'
-import {cleanup, render} from '@testing-library/react'
+import {afterEach, describe, expect, it, vi} from 'vitest'
+import {cleanup, fireEvent, render} from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
 import {QrCodeGen} from "./QrCodeGen.tsx";
 import {QRCodeGenActions, QrCodeGenState} from "./use-qr-code-gen.ts";
-import {vi} from 'vitest'
+
 afterEach(() => {
     cleanup();
 })
@@ -19,18 +18,57 @@ describe('QrCodeGen', () => {
         qrcode: ""
 
     }
+    const mockGenerateQRCode = vi.fn()
     const defaultActions: QRCodeGenActions = {
         deleteHistoryItem: vi.fn(),
         generateFromListItem: vi.fn(),
-        generateQRCode: vi.fn(),
+        generateQRCode: mockGenerateQRCode,
         setInput: vi.fn()
     }
     it('should render', () => {
-        const app =
+        const {getByTestId} =
             render(<QrCodeGen
                 qrCodeGenState={defaultState}
                 qrCodeGenActions={defaultActions}
             />)
-        expect(app.container.querySelector('#input-container')).not.toBeNull();
+        expect(getByTestId('QrCodeContainer')).not.toBeNull();
+    })
+
+    it('should call generateQRCode function when button is pressed', () => {
+        const {getByTestId} =
+            render(<QrCodeGen
+                qrCodeGenState={{...defaultState, input: "validInput"}}
+                qrCodeGenActions={defaultActions}
+            />)
+        expect(getByTestId('QrCodeContainer')).not.toBeNull();
+        fireEvent.click(getByTestId('generateButton'))
+        expect(mockGenerateQRCode).toHaveBeenCalled()
+    })
+
+    it('should display input properly', () => {
+        const {getByTestId} =
+            render(<QrCodeGen
+                qrCodeGenState={{...defaultState, input: 'validInput'}}
+                qrCodeGenActions={defaultActions}
+            />)
+        expect(getByTestId('textInput')).toHaveValue('validInput');
+    })
+
+    it('should display empty input error properly', () => {
+        const {getByTestId} =
+            render(<QrCodeGen
+            qrCodeGenState={{...defaultState, error: {hasError: true, errorInfo: "EMPTY_STRING"}}}
+            qrCodeGenActions={defaultActions}
+        />)
+        expect(getByTestId('emptyInputError')).not.toBeNull();
+    })
+
+    it('should display input too long error properly', () => {
+        const {getByTestId} =
+            render(<QrCodeGen
+                qrCodeGenState={{...defaultState, error: {hasError: true, errorInfo: "MAX_LENGTH"}}}
+                qrCodeGenActions={defaultActions}
+            />)
+        expect(getByTestId('tooLongInputError')).not.toBeNull();
     })
 })

@@ -12,21 +12,22 @@ export const QrCodeGen = (
 
     return (
         <>
-        <div id="input-container">
+        <div id="input-container" data-testid="QrCodeContainer">
             {qrCodeGenState.error.hasError && qrCodeGenState.error.errorInfo == 'EMPTY_STRING' &&
-                <span className="error">QRCode input is empty...</span>}
+                <span className="error" data-testid="emptyInputError" >QRCode input is empty...</span>}
             {qrCodeGenState.error.hasError && qrCodeGenState.error.errorInfo == 'MAX_LENGTH' &&
-                <span className="error">QRCode input is too long...</span>}
+                <span className="error" data-testid="tooLongInputError">QRCode input is too long...</span>}
             <h1 className="title">QRCode Generator</h1>
             <input
                 type="text"
                 id="text-input"
+                data-testid="textInput"
                 name="text-input"
                 onChange={(e) => qrCodeGenActions.setInput(e.target.value)}
                 value={qrCodeGenState.input}
                 placeholder="Enter info here">
             </input>
-            <button className="button-64" role="button" onClick={() => qrCodeGenActions.generateQRCode()}>
+            <button className="button-64" role="button" data-testid="generateButton" onClick={() => qrCodeGenActions.generateQRCode()}>
                 <span className="text">Generate</span>
             </button>
             {qrCodeGenState.qrcode &&
