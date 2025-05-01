@@ -1,5 +1,5 @@
 import {afterEach, describe, expect, it, vi} from 'vitest'
-import {cleanup, fireEvent, queryByTestId, render} from '@testing-library/react'
+import {cleanup, fireEvent, render} from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
 import {QrCodeGen} from "./QrCodeGen.tsx";
 import {QRCodeGenActions, QrCodeGenState} from "./use-qr-code-gen.ts";
