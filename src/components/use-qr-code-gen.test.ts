@@ -23,8 +23,11 @@ describe('useQrCodeGen', () => {
             maxLength: 0,
             typeNumber: 0
         })).result.current
-        qrCodeGenActions.setInput('Test input')
-        expect(qrCodeGenState.input).toEqual('Test input')
+        act(() => {
+            qrCodeGenActions.setInput('Test input');
+        })
+        console.log(qrCodeGenState)
+        expect(qrCodeGenState.input).toEqual('Test input');
     })
 
     it('should update state when using history item', () => {
