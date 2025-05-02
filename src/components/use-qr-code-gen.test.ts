@@ -1,15 +1,10 @@
 import {describe, expect, it, vi} from "vitest";
-import {updateQRCode, useQrCodeGen} from "./use-qr-code-gen.ts";
+import {useQrCodeGen} from "./use-qr-code-gen.ts";
 import {renderHook} from "@testing-library/react";
 import {act} from "react";
+import * as QrCodeModule from './update-qr-code'; // Import the module itself
 
 describe('useQrCodeGen', () => {
-
-    vi.mock(import('./use-qr-code-gen.ts'), async (importOriginal) => {
-        const mod = await importOriginal()
-        return {...mod, updateQRCode: vi.fn()}
-    })
-
     it('should return state and actions with default values', () => {
         const [qrCodeGenState, qrCodeGenActions] = renderHook(() => useQrCodeGen({
             errorCorrectionLevel: 'L',
@@ -40,10 +35,18 @@ describe('useQrCodeGen', () => {
             typeNumber: 0
         })).result.current[1]
 
+        const updateQRCodeSpy = vi.spyOn(QrCodeModule, 'updateQRCode');
+
         act(() => {
             qrCodeGenActions.generateFromListItem('History Item')
         })
-        expect(updateQRCode).toBeCalledWith('History Item')
+
+        expect(updateQRCodeSpy).toHaveBeenCalledWith(
+            expect.objectContaining({
+                data: 'History Item', // Check specific argument properties
+                shouldUpdateHistory: false
+            })
+        );
     })
 
 })
