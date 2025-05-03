@@ -10,6 +10,12 @@ export default defineConfig({
     environment: 'jsdom',
     // hey! 👋 over here
     globals: true,
-    setupFiles: './tests/setup.js', // assuming the test folder is in the root of our project
+    setupFiles: './tests/setup.js',
+    coverage: {
+      enabled: true,
+      provider: 'v8', // or 'istanbul'
+      reporter: ['text', 'json-summary', 'html'],
+      reportsDirectory: './coverage'
+    }// assuming the test folder is in the root of our project
   }
 } as UserConfig)

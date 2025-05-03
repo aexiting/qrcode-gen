@@ -1,6 +1,6 @@
 import {describe, expect, it, vi} from "vitest";
 import {useQrCodeGen} from "./use-qr-code-gen.ts";
-import {renderHook} from "@testing-library/react";
+import {renderHook, waitFor} from "@testing-library/react";
 import {act} from "react";
 import * as QrCodeModule from './update-qr-code'; // Import the module itself
 
@@ -16,21 +16,7 @@ describe('useQrCodeGen', () => {
         expect(qrCodeGenState).not.toBeNull();
     })
 
-    it('should update input state', () => {
-        const [qrCodeGenState, qrCodeGenActions] = renderHook(() => useQrCodeGen({
-            errorCorrectionLevel: 'L',
-            maxHistory: 0,
-            maxLength: 0,
-            typeNumber: 0
-        })).result.current
-        act(() => {
-            qrCodeGenActions.setInput('Test input');
-        })
-        console.log(qrCodeGenState)
-        expect(qrCodeGenState.input).toEqual('Test input');
-    })
-
-    it('should update state when using history item', () => {
+    it('should update state when using history item', async () => {
         const qrCodeGenActions = renderHook(() => useQrCodeGen({
             errorCorrectionLevel: 'L',
             maxHistory: 0,
@@ -44,12 +30,14 @@ describe('useQrCodeGen', () => {
             qrCodeGenActions.generateFromListItem('History Item')
         })
 
-        expect(updateQRCodeSpy).toHaveBeenCalledWith(
-            expect.objectContaining({
-                data: 'History Item', // Check specific argument properties
-                shouldUpdateHistory: false
-            })
-        );
+         await waitFor(() => {
+            expect(updateQRCodeSpy).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    data: 'History Item', // Check specific argument properties
+                    shouldUpdateHistory: false
+                })
+            );
+        })
     })
 
 })

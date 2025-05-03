@@ -105,6 +105,7 @@ export const useQrCodeGen = (
         ,
         generateFromListItem:
             (historyItem: string) => {
+                console.log('--- In generateFromListItem, updateQRCode is:', updateQRCode.name, updateQRCode);
                 const {qrcode, error} =
                     updateQRCode({
                         ...commonQRCodeConfig,
@@ -116,9 +117,7 @@ export const useQrCodeGen = (
                 setState({...state, qrcode, error})
             }
         ,
-        setInput: (input: string) => {
-            console.log("test input")
+        setInput: (input: string) =>
             setState(prevState => ({...prevState, input: input}))
-        }
     }]
 }
